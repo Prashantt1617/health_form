@@ -118,7 +118,7 @@ function App() {
 
 
   const handleSubmit = async (e) => {
-    if (e) e.preventDefault();
+    if (e) e.preventDefault()
     try {
       const response = await axios.post("http://localhost:5000/api/form/submit", answers);
       alert("Form submitted successfully!");
@@ -150,6 +150,15 @@ function App() {
           isFirstQuestion={isFirstQuestion}
         />
       </form>
+      {isLastQuestion && (
+        <button
+          type="submit"
+          className="btnsub bg-green-600 text-white text-lg font-bold mt-4"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+      )}
     </div>
   );
 }

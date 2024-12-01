@@ -7,10 +7,10 @@ const Questionnaire = ({
   currentQuestion,
   handleAnswerChange,
   handleNextQuestion,
-  handleSubmit,
   isFirstQuestion,
-  isLastQuestion,
-  handlePreviousQuestion
+  handlePreviousQuestion,
+  isLastQuestion
+
 }) => {
   return (
     <div>
@@ -48,12 +48,14 @@ const Questionnaire = ({
           </div>
         </div>
 
-        <button
-          className='navigation btnsub bg-green-600 text-white text-lg font-bold'
-          onClick={isLastQuestion ? handleSubmit : handleNextQuestion}
-        >
-          {isLastQuestion ? "Submit" : "Next"}
-        </button>
+        {!isLastQuestion && (
+          <button
+            className='navigation btnsub bg-green-600 text-white text-lg font-bold'
+            onClick={handleNextQuestion}
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );
