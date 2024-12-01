@@ -74,17 +74,21 @@ function App() {
   const [currentSection, setCurrentSection] = useState(sectionNames[0]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
+
   const handleAnswerChange = (section, questionId, score) => {
+    const answersKeys = Object.keys(answers[section])
+    const currentQuestion = answersKeys[questionId-1];
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
       [section]: {
         ...prevAnswers[section],
-        [questionId]: score,
+        [currentQuestion]: score
       },
     }));
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = (e) => {
+    e.preventDefault()
     const currentSectionQuestions = sections[currentSection];
 
     if (currentQuestionIndex < currentSectionQuestions.length - 1) {
@@ -103,7 +107,8 @@ function App() {
     }
   };
 
-  const handlePreviousQuestion = () => {
+  const handlePreviousQuestion = (e) => {
+    e.preventDefault()
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     } else {
@@ -149,7 +154,6 @@ function App() {
           isLastQuestion={isLastQuestion}
           isFirstQuestion={isFirstQuestion}
         />
-      </form>
       {isLastQuestion && (
         <button
           type="submit"
@@ -159,6 +163,7 @@ function App() {
           Submit
         </button>
       )}
+      </form>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./../styles/ques.css";
 import Previous from './previous';
 
@@ -12,13 +12,19 @@ const Questionnaire = ({
   isLastQuestion
 
 }) => {
+
+  const [selectedIndex, setSelectedIndex] = useState(0);    
+
   return (
     <div>
       <div>
         <h2>{currentSection}</h2>
         <div className="prevt">
           <Previous
-            handlePreviousQuestion={handlePreviousQuestion}
+            handlePreviousQuestion={(e)=>{
+              handlePreviousQuestion(e);
+              
+            }}
             disabled={isFirstQuestion}
           />
         </div>
@@ -35,11 +41,14 @@ const Questionnaire = ({
                   name={`${currentSection}-${currentQuestion.id}`}
                   value={currentQuestion.scores[index]}
                   onChange={() =>
+                   {
                     handleAnswerChange(
                       currentSection,
                       currentQuestion.id,
                       currentQuestion.scores[index]
                     )
+                    setSelectedIndex(index);
+                   }
                   }
                 />
                 {option}
@@ -51,7 +60,16 @@ const Questionnaire = ({
         {!isLastQuestion && (
           <button
             className='navigation btnsub bg-green-600 text-white text-lg font-bold'
-            onClick={handleNextQuestion}
+            onClick={(e)=>
+            {
+              handleAnswerChange(
+                currentSection,
+                currentQuestion.id,
+                currentQuestion.scores[selectedIndex]
+              );
+              handleNextQuestion(e);
+            }
+            }
           >
             Next
           </button>
