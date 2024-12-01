@@ -69,3 +69,11 @@ input[type="radio"]:checked::before {
     font-size: 14px;
     color: #333;
 }
+
+.prevt {
+    width: 80vw;
+}
+
+.ri-arrow-left-circle-line {
+    margin-right: 55.4vw;
+}

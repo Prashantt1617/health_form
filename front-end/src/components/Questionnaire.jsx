@@ -1,20 +1,27 @@
-// Questionnaire.jsx
 import React from 'react';
 import "./../styles/ques.css";
+import Previous from './previous';
+
 const Questionnaire = ({
   currentSection,
   currentQuestion,
   handleAnswerChange,
   handleNextQuestion,
-  showSubmitButton,
   handleSubmit,
-
+  isFirstQuestion,
+  isLastQuestion,
+  handlePreviousQuestion
 }) => {
-  const isLastQuestion = showSubmitButton;
   return (
     <div>
       <div>
         <h2>{currentSection}</h2>
+        <div className="prevt">
+          <Previous
+            handlePreviousQuestion={handlePreviousQuestion}
+            disabled={isFirstQuestion}
+          />
+        </div>
         <div>
           <div className="ques">
             <p className='text-xl font-bold text-left text-orange-700 px-10 mt-45 mb-4'>{currentQuestion.question}</p>
@@ -25,7 +32,6 @@ const Questionnaire = ({
                 <input
                   className='mr-4 ml-4 checked:bg-orange-500'
                   type="radio"
-
                   name={`${currentSection}-${currentQuestion.id}`}
                   value={currentQuestion.scores[index]}
                   onChange={() =>
@@ -40,9 +46,12 @@ const Questionnaire = ({
               </label>
             ))}
           </div>
-
         </div>
-        <button onClick={handleNextQuestion} className='btnsub bg-green-600 text-white text-lg font-bold'>
+
+        <button
+          className='navigation btnsub bg-green-600 text-white text-lg font-bold'
+          onClick={isLastQuestion ? handleSubmit : handleNextQuestion}
+        >
           {isLastQuestion ? "Submit" : "Next"}
         </button>
       </div>
