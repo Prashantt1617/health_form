@@ -3,7 +3,7 @@ import React from "react";
 function Questionnaire({ questions, answers, onAnswerChange }) {
   return (
     <div>
-      {questions.map((question) => (
+      {/* {questions.map((question) => (
         <div key={`${question.section}-${question.id}`} className="question">
           <p>{question.question}</p>
           {question.options.map((option, index) => (
@@ -18,7 +18,7 @@ function Questionnaire({ questions, answers, onAnswerChange }) {
               />
               {option}
             </label>
-          ))}
+          ))} */}
         </div>
       ))}
     </div>

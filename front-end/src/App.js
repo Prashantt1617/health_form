@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import Questionnaire from "./Questionnaire";
+import Questionnaire from "./components/Questionnaire.jsx"
 import Summary from "./Summary";
 import "./App.css";
 import axios from "axios";
+import Header from "./components/Header";
+import "./styles/tailwind.css";
+import Bar from "./components/bar.jsx";
 
 function App() {
   const [answers, setAnswers] = useState({
@@ -34,7 +37,6 @@ function App() {
     },
   });
 
-  const [showSummary, setShowSummary] = useState(false);
 
   const sections = {
     PhysicalHealth: [
@@ -229,28 +231,66 @@ function App() {
     ],
   };
 
-  // Combine all questions into a single list
-  const allQuestions = Object.entries(sections).flatMap(
-    ([section, questions]) =>
-      questions.map((question) => ({ ...question, section }))
-  );
+  const sectionNames = Object.keys(sections);
+
+
+
+  const totalQuestions = Object.values(sections).flat().length;
+
+
+  const handleNextQuestion = () => {
+    setSelectedAnswer(null);
+    const currentSectionQuestions = sections[currentSection];
+    if (currentQuestionIndex < currentSectionQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      const currentSectionIndex = sectionNames.indexOf(currentSection);
+      if (currentSectionIndex < sectionNames.length - 1) {
+        setCurrentSection(sectionNames[currentSectionIndex + 1]);
+        setCurrentQuestionIndex(0);
+      } else {
+        setShowSubmitButton(true);
+      }
+    }
+  };
+
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   const handleAnswerChange = (section, questionId, score) => {
-    console.log(section);
-    setAnswers((prev) => ({
-      ...prev,
+    setAnswers((prevAnswers) => ({
+      ...prevAnswers,
       [section]: {
-        ...prev[section],
+        ...prevAnswers[section],
         [questionId]: score,
       },
     }));
+    setSelectedAnswer(score);
   };
-  
+
+
+
+  // Combine all questions into a single list
+  // const allQuestions = Object.entries(sections).flatMap(
+  //   ([section, questions]) =>
+  //     questions.map((question) => ({ ...question, section }))
+  // );
+
+  // const handleAnswerChange = (section, questionId, score) => {
+  //   console.log(section);
+  //   setAnswers((prev) => ({
+  //     ...prev,
+  //     [section]: {
+  //       ...prev[section],
+  //       [questionId]: score,
+  //     },
+  //   }));
+  // };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Send data to the backend
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/form/submit",
@@ -258,30 +298,44 @@ function App() {
       );
       alert("Form submitted successfully!");
       console.log(response.data);
-      setShowSummary(true); // Show summary after successful submission
+      setShowSummary(true);
     } catch (error) {
       console.error("Error submitting the form:", error);
       alert("Failed to submit the form");
     }
   };
 
-  return (
-    <div className="App">
-      <h1>Health Assessment Form</h1>
-      {!showSummary ? (
-        <form onSubmit={handleSubmit}>
-          <Questionnaire
-            questions={allQuestions}
-            answers={answers} // Make sure this is the updated state
-            onAnswerChange={handleAnswerChange}
-          />
+  const [showSummary, setShowSummary] = useState(false);
+  const [currentSection, setCurrentSection] = useState("PhysicalHealth");
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [showSubmitButton, setShowSubmitButton] = useState(false);
+  const currentSectionQuestions = sections[currentSection];
+  const currentQuestion = currentSectionQuestions[currentQuestionIndex];
 
-          <button type="submit">Submit</button>
-        </form>
-      ) : (
-        <Summary answers={answers} questions={allQuestions} />
-      )}
-    </div>
+  return (
+    <>
+      <Header />
+
+      <div className="App">
+        <h1 className='font-bold text-xl p-5 text-gray-500 '>Health Assessment</h1>
+        <Bar currentQuestion={currentQuestionIndex + 1} totalQuestions={totalQuestions} color="#16a34a" color2="#e9e2e2" />
+        {!showSummary ? (
+          <form onSubmit={handleSubmit}>
+            <Questionnaire
+              currentSection={currentSection}
+              currentQuestion={currentQuestion}
+              handleAnswerChange={handleAnswerChange}
+              handleNextQuestion={handleNextQuestion}
+
+            />
+
+            {/* <button type="submit">Submit</button> */}
+          </form>
+        ) : (
+          <Summary answers={answers} questions={handleNextQuestion} />
+        )}
+      </div>
+    </>
   );
 }
 
