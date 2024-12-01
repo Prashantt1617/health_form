@@ -92,17 +92,15 @@ function App() {
     const currentSectionQuestions = sections[currentSection];
 
     if (currentQuestionIndex < currentSectionQuestions.length - 1) {
-
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-
       const currentSectionIndex = sectionNames.indexOf(currentSection);
       if (currentSectionIndex < sectionNames.length - 1) {
         setCurrentSection(sectionNames[currentSectionIndex + 1]);
         setCurrentQuestionIndex(0);
       } else {
 
-        handleSubmit();
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
       }
     }
   };
@@ -123,16 +121,24 @@ function App() {
 
 
   const handleSubmit = async (e) => {
-    if (e) e.preventDefault()
-    try {
-      const response = await axios.post("http://localhost:5000/api/form/submit", answers);
-      alert("Form submitted successfully!");
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error submitting the form:", error);
-      alert("Failed to submit the form");
+    e.preventDefault();  // Prevent form from submitting automatically on Next button click
+
+    // Check if it's the last question
+    const currentSectionQuestions = sections[currentSection];
+    const isLastQuestion = currentSection === sectionNames[sectionNames.length - 1] && currentQuestionIndex === currentSectionQuestions.length - 1;
+
+    if (isLastQuestion) {
+      try {
+        const response = await axios.post("http://localhost:5000/api/form/submit", answers);
+        alert("Form submitted successfully!");
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error submitting the form:", error);
+        alert("Failed to submit the form");
+      }
     }
   };
+
 
   const currentSectionQuestions = sections[currentSection];
   const currentQuestion = currentSectionQuestions[currentQuestionIndex];
