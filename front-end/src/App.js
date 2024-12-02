@@ -348,9 +348,9 @@ function App() {
         {isLastQuestion && (
           <button
             type="submit"
-            className="btnsub bg-green-600 hover:bg-green-800 text-white text-lg font-bold mt-4"
+            className="btnsub bg-[#16a34a8e] hover:bg-[#16a34a] text-white text-lg font-bold mt-4"
           >
-            Submit
+            View Report
           </button>
         )}
       </form>
