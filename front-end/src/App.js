@@ -293,7 +293,7 @@ function App() {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/form/submit",
+          "https://health-form-1.onrender.com/api/form/submit",
           { data: formattedData }
         );
         // alert("Form submitted successfully!");
@@ -348,7 +348,7 @@ function App() {
         {isLastQuestion && (
           <button
             type="submit"
-            className="btnsub bg-green-600 text-white text-lg font-bold mt-4"
+            className="btnsub bg-green-600 hover:bg-green-800 text-white text-lg font-bold mt-4"
           >
             Submit
           </button>

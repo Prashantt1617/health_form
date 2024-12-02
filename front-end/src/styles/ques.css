@@ -100,8 +100,9 @@ input[type="radio"]:checked::before {
     display: flex;
     align-items: center;
     border-radius: 5px;
+    white-space: nowrap;
 }
 
 .healthcheck {
-    width: 75vw;
+    width: 100vw;
 }
