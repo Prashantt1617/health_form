@@ -10,6 +10,7 @@ router.post('/submit', async (req, res) => {
   const formData = req.body;
   try {
     const newFormData = new FormData(formData);
+    console.log("formdata",formData);
     await newFormData.save();
     res.status(201).json({ message: 'Form submitted successfully!', data: newFormData });
   } catch (err) {

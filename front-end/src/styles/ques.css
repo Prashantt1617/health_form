@@ -1,5 +1,8 @@
 .ques {
     width: 80vw;
+    border-left: 7px solid #e3dfd5;
+    border-radius: 4px;
+    margin-left: 5vw;
 }
 
 /* Apply custom styles to the radio button */
@@ -67,11 +70,16 @@ input[type="radio"]:checked::before {
     margin-top: 5px;
     text-align: right;
     font-size: 14px;
+    margin-right: 6vw;
     color: #333;
 }
 
 .prevt {
     width: 80vw;
+    height: 7vh;
+    margin-left: 5vw;
+    align-items: center;
+    display: flex;
 }
 
 .ri-arrow-left-circle-line {
