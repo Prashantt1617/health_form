@@ -5,6 +5,14 @@
     margin-left: 5vw;
 }
 
+.navigation {
+    background-color: #16a34a;
+}
+
+.head {
+    height: 120px;
+}
+
 /* Apply custom styles to the radio button */
 input[type="radio"] {
     appearance: none;
@@ -84,4 +92,16 @@ input[type="radio"]:checked::before {
 
 .ri-arrow-left-circle-line {
     margin-right: 55.4vw;
+}
+
+.hc {
+    background-color: rgb(240, 194, 172);
+    height: 5.5vh;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.healthcheck {
+    width: 75vw;
 }

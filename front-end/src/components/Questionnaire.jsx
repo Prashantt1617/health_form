@@ -59,7 +59,7 @@ const Questionnaire = ({
 
         {!isLastQuestion && (
           <button
-            className="navigation btnsub bg-green-300 hover:bg-green-900 text-white text-lg font-bold"
+            className="navigation btnsub hover:bg-green-900 text-white text-lg font-bold"
             onClick={handleNextQuestion}
           >
             Next

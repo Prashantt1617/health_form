@@ -209,7 +209,7 @@ function App() {
     ],
   };
 
-  
+
 
   const totalQuestions = Object.values(sections).reduce(
     (acc, section) => acc + section.length,
@@ -296,13 +296,13 @@ function App() {
           "http://localhost:5000/api/form/submit",
           { data: formattedData }
         );
-        alert("Form submitted successfully!");
+        // alert("Form submitted successfully!");
         console.log("Submission Data:", formattedData);
         console.log(response.data);
         setIsSubmitted(true); // Mark form as submitted
       } catch (error) {
         console.error("Error submitting the form:", error);
-        alert("Failed to submit the form");
+        // alert("Failed to submit the form");
       }
     }
   };
@@ -318,9 +318,6 @@ function App() {
     return (
       <div className="App">
         <Header />
-        <h1 className="font-bold text-xl p-5 text-gray-500">
-          Health Assessment Summary
-        </h1>
         <Summary answers={answers} /> {/* Ensure answers are passed here */}
       </div>
     );

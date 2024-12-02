@@ -1,5 +1,6 @@
 import React from "react";
 import { energySnapshot } from "./components/data";
+import "./styles/ques.css";
 
 const Summary = ({ answers }) => {
   console.log("answers", answers);
@@ -64,68 +65,84 @@ const Summary = ({ answers }) => {
     parseInt(answers.LifestyleBalance[1]) +
     parseInt(answers.OverallWellness[2]);
 
-    const getworkColor = (score) => {
-      console.log("sc", score);
-  
-      if (score <= 3) {
-        return "red";
-      } else if (score <= 6) {
-        return "yellow";
-      } else if (score <= 9) {
-        return "green";
-      } else {
-        return "blue";
-      }
-    };
+  const getworkColor = (score) => {
+    console.log("sc", score);
+
+    if (score <= 3) {
+      return "red";
+    } else if (score <= 6) {
+      return "yellow";
+    } else if (score <= 9) {
+      return "green";
+    } else {
+      return "blue";
+    }
+  };
 
   let workLifeBalanceMessage = "";
   if (workLifeBalanceScore <= 3) {
     workLifeBalanceMessage = (
       <div>
-        <p>
-          Insight: "You may be over-prioritizing work at the expense of personal
-          time and self-care."
-        </p>
-        <p>Actionable Steps:</p>
-        <ul>
-          <li>
+        <h1 className="text-green-600 text-md font-semibold mt-4 text-left mx-4">Insight:</h1>
+        <p className="text-left">"You may be over-prioritizing work at the expense of personal
+          time and self-care."</p>
+        <div className="ques">
+          <p className="text-red-600 text-md font-semibold mt-4 text-left mx-4">Actionable Steps:</p>
+
+          <li className="text-left mt-4 mx-4">
             Schedule at least one recreational activity this week (e.g.,
             reading, walking, or hobbies).
           </li>
-          <li>Block specific time for family or personal commitments.</li>
-        </ul>
+          <li className="text-left mb-3 mt-4 mx-4">
+            Block specific time for family or personal commitments.
+          </li>
+
+        </div>
       </div>
     );
   } else if (workLifeBalanceScore <= 6) {
     workLifeBalanceMessage = (
       <div>
-        <p>
-          Insight: "You're managing a fair balance but could invest more in
-          self-care and personal development."
-        </p>
-        <p>Actionable Steps:</p>
-        <ul>
-          <li>
+        <div className="ques">
+          <h1 className="text-green-600 text-md font-semibold mt-4 text-left mx-4">Insight:</h1>
+          <li className="text-left text-md mt-4 mx-4">"You're managing a fair balance but could invest more in
+            self-care and personal development."</li>
+        </div>
+
+        <div className="ques">
+          <p className="text-red-600 text-md font-semibold mt-4 text-left mx-4">Actionable Steps:</p>
+
+          <li className="text-left mt-4 mx-4">
             Dedicating 30 minutes daily to hobbies or learning something new.
           </li>
-          <li>
+          <li className="text-left mb-3 mt-4 mx-4">
             Plan a day in the next month solely for family or personal growth.
           </li>
-        </ul>
+
+        </div>
       </div>
     );
   } else {
     workLifeBalanceMessage = (
       <div>
-        <p>
-          Insight: "You're prioritizing self-care and personal growth
-          effectively. Keep it up!"
-        </p>
-        <p>Actionable Steps:</p>
-        <ul>
-          <li>Continue exploring new activities or skills regularly.</li>
-          <li>Share your strategies with others to inspire balance.</li>
-        </ul>
+        <div className="ques">
+          <h1 className="text-green-600 text-md font-semibold mt-4 text-left mx-4">Insight:</h1>
+          <li className="text-left text-md mt-4 mx-4">"You're prioritizing self-care and personal growth
+            effectively. Keep it up!"</li>
+        </div>
+
+
+        <div className="ques">
+          <p className="text-red-600 text-md font-semibold mt-4 text-left mx-4">Actionable Steps:</p>
+
+          <li className="text-left mt-4 mx-4">
+            Continue exploring new activities or skills regularly.
+          </li>
+          <li className="text-left mb-3 mt-4 mx-4">
+            Share your strategies with others to inspire balance.
+          </li>
+
+        </div>
       </div>
     );
   }
@@ -191,43 +208,66 @@ const Summary = ({ answers }) => {
 
   return (
     <div>
-      <h2>Summary</h2>
-
-      <h3 className="text-green-600 text-md font-semibold mt-4">Strengths</h3>
-      <ul className="list-disc pl-5">
-        {strengths.length > 0 ? (
-          strengths.map((message, index) => <li key={index}>{message}</li>)
-        ) : (
-          <p>No strengths identified yet.</p>
-        )}
-      </ul>
-
-      <h3 className="text-red-600 text-md font-semibold mt-4">Focus Areas</h3>
-      <ul className="list-disc pl-5">
-        {focusAreas.length > 0 ? (
-          focusAreas.map((message, index) => <li key={index}>{message}</li>)
-        ) : (
-          <p>No focus areas identified yet.</p>
-        )}
-      </ul>
-
-      <div className=" flex gap-2 align-middle w-full justify-center">
-        <h3>Work-Life Balance</h3>
-        <div
-          className="w-4 h-4 rounded-full mt-1"
-          style={{ backgroundColor: `${getworkColor(workLifeBalanceScore)}` }}
-        ></div>
+      <h1 className="my-5 mx-3 text-left text-gray-600 font-semibold text-left"><i class="ri-checkbox-circle-line"></i> Your report is ready!</h1>
+      <div className="healthcheck">
+        <h1 className="hc flex gap-16 text-gray-500 font-bold mx-3 px-3">HEALTH CHECKPOINT
+          <div
+            className="w-4 h-4 rounded-full mt-1"
+            style={{ backgroundColor: `${getworkColor(workLifeBalanceScore)}` }}
+          ></div>
+        </h1>
       </div>
+
+      <div className="ques">
+        <h3 className=" text-green-600 text-md font-semibold mt-4 text-left mx-4">Strengths :</h3>
+        <ul className="list-disc pl-5 ">
+          {strengths.length > 0 ? (
+            strengths.map((message, index) => <li className="text-left" key={index}>{message}</li>)
+          ) : (
+            <p>No strengths identified yet.</p>
+          )}
+        </ul>
+      </div>
+
+      <div className="ques">
+        <h3 className="text-red-600 text-md font-semibold mt-4 text-left mx-4">Focus Areas :</h3>
+        <ul className="list-disc pl-5">
+          {focusAreas.length > 0 ? (
+            focusAreas.map((message, index) => <li className="text-left" key={index}>{message}</li>)
+          ) : (
+            <p>No focus areas identified yet.</p>
+          )}
+        </ul>
+      </div>
+
+
+      <div className="healthcheck my-5">
+        <h1 className="hc flex gap-16 text-gray-500 font-bold mx-3 px-3">LIFE BEYOND WORK
+          <div
+            className="w-4 h-4 rounded-full mt-1"
+            style={{ backgroundColor: `${getworkColor(workLifeBalanceScore)}` }}
+          ></div>
+        </h1>
+
+      </div>
+
+
       {workLifeBalanceMessage}
-      <div className=" flex gap-2 align-middle w-full justify-center">
-        <h3>Energy Snapshot</h3>
-        <div
-          className="w-4 h-4 rounded-full mt-1"
-          style={{ backgroundColor: `${getColor(energySnapshotScore)}` }}
-        ></div>
+      <div className="healthcheck">
+        <h1 className="hc flex gap-16 text-gray-500 font-bold mx-3 px-3">ENERGY SNAPSHOT
+          <div
+            className="w-4 h-4 rounded-full mt-1"
+            style={{ backgroundColor: `${getworkColor(workLifeBalanceScore)}` }}
+          ></div></h1>
       </div>
+      <div className="ques"><h1 className="text-green-600 text-md font-semibold mt-4 text-left mx-4">Insight:</h1></div>
+
+
       {energySnapshotMessage.map((msg, i) => (
-        <p>{msg}</p>
+        <div className="ques">
+
+          <li className="text-left mt-4 mx-4 mb-5">{msg}</li>
+        </div>
       ))}
     </div>
   );
